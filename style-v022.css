@@ -1,0 +1,168 @@
+/* Secure Lock v0.2.2 viewport-safe stylesheet. */
+@import url("./style.css?slv=0.2.2");
+
+/* The JS entrypoint sizes this host to window.visualViewport in document
+   coordinates. Children are absolute inside it instead of fixed to Safari's
+   layout viewport. */
+#secure-lock-overlay-root {
+    position: absolute !important;
+    inset: auto !important;
+    overflow: visible !important;
+    pointer-events: none !important;
+    z-index: 2147483000 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    contain: none !important;
+    isolation: isolate;
+}
+
+#secure-lock-overlay-root [hidden] {
+    display: none !important;
+}
+
+#secure-lock-overlay-root .sl-backdrop,
+#secure-lock-overlay-root .sl-atm-backdrop {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    pointer-events: auto !important;
+}
+
+/* Card preview: true visual-viewport centering, with a hard size ceiling so
+   the title/close button can never be pushed above Safari's visible area. */
+#secure-lock-overlay-root .sl-card-modal:not([hidden]) {
+    display: block !important;
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: min(520px, calc(100% - 32px - env(safe-area-inset-left) - env(safe-area-inset-right))) !important;
+    max-width: none !important;
+    max-height: calc(100% - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+    transform: translate(-50%, -50%) !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    pointer-events: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+#secure-lock-overlay-root .sl-card-modal .sl-modal-head {
+    position: sticky;
+    top: 0;
+    z-index: 8;
+    margin: -2px -2px 12px;
+    padding: 2px 2px 8px;
+    background: linear-gradient(180deg, var(--sl-surface) 72%, rgba(230,235,242,0));
+}
+
+/* ATM preview/context window: same centering model, but keep a real bounded
+   component height and let only the ATM screen scroll. */
+#secure-lock-overlay-root .sl-atm-window:not([hidden]) {
+    display: flex !important;
+    flex-direction: column !important;
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: min(900px, calc(100% - 32px - env(safe-area-inset-left) - env(safe-area-inset-right))) !important;
+    height: min(620px, calc(100% - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom))) !important;
+    max-width: none !important;
+    max-height: none !important;
+    transform: translate(
+        calc(-50% + var(--sl-drag-x, 0px)),
+        calc(-50% + var(--sl-drag-y, 0px))
+    ) !important;
+    overflow: hidden !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+#secure-lock-overlay-root .sl-atm-titlebar {
+    flex: 0 0 auto;
+}
+
+#secure-lock-overlay-root .sl-atm-layout {
+    flex: 1 1 auto;
+    min-height: 0 !important;
+    overflow: hidden !important;
+}
+
+#secure-lock-overlay-root .sl-atm-screen-panel {
+    min-height: 0 !important;
+    overflow: hidden !important;
+}
+
+#secure-lock-overlay-root .sl-atm-screen {
+    flex: 1 1 auto;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+#secure-lock-overlay-root .sl-toast {
+    position: absolute !important;
+    top: calc(12px + env(safe-area-inset-top)) !important;
+}
+
+@media (max-width: 720px) {
+    #secure-lock-overlay-root .sl-card-modal:not([hidden]) {
+        width: min(480px, calc(100% - 24px - env(safe-area-inset-left) - env(safe-area-inset-right))) !important;
+        max-height: calc(100% - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+        border-radius: 22px;
+        padding: 12px;
+    }
+
+    #secure-lock-overlay-root .sl-atm-window:not([hidden]) {
+        width: min(480px, calc(100% - 24px - env(safe-area-inset-left) - env(safe-area-inset-right))) !important;
+        height: min(640px, calc(100% - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom))) !important;
+        border-radius: 24px;
+    }
+
+    #secure-lock-overlay-root .sl-atm-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        padding: 0 12px 12px !important;
+    }
+
+    #secure-lock-overlay-root .sl-atm-screen-panel {
+        flex: 1 1 auto;
+        max-height: none !important;
+        padding: 12px;
+    }
+
+    #secure-lock-overlay-root .sl-atm-screen {
+        flex: 1 1 auto;
+        min-height: 0 !important;
+        max-height: none !important;
+        padding: 14px;
+    }
+
+    #secure-lock-overlay-root .sl-atm-hardware {
+        display: none !important;
+    }
+}
+
+@media (max-width: 420px) {
+    #secure-lock-overlay-root .sl-card-modal:not([hidden]) {
+        width: calc(100% - 20px - env(safe-area-inset-left) - env(safe-area-inset-right)) !important;
+    }
+
+    #secure-lock-overlay-root .sl-atm-window:not([hidden]) {
+        width: calc(100% - 20px - env(safe-area-inset-left) - env(safe-area-inset-right)) !important;
+        height: calc(100% - 20px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+    }
+
+    #secure-lock-overlay-root .sl-card-number {
+        font-size: clamp(15px, 4.4vw, 17px);
+        letter-spacing: .055em;
+    }
+}
