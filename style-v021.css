@@ -30,7 +30,7 @@
 }
 
 #secure-lock-overlay-root .sl-atm-window:not([hidden]) {
-    display: flex !important;
+    display: block !important;
     position: fixed !important;
     pointer-events: auto !important;
 }
