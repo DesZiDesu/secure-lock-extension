@@ -2,16 +2,19 @@
 
 Secure Lock is a SillyTavern contextual interaction extension. It keeps normal roleplay in the main chat while opening small interactive components only when the current scene actually needs them.
 
-## Current stage — v0.2.0
+## Current stage — v0.2.3
 
 ### ATM Card
 
 - Extensions-tab card editor
-- Front/back 3D flip preview
+- Front/back flip preview with Safari-safe face isolation
 - Gold chip, card number, card holder, expiry, CVV/CVC and network label
 - Multiple visual card themes
 - User-entered fields always win
 - Blank card fields can receive stable AI-generated defaults when an ATM interaction is triggered
+- Card viewer is card-only with no outer white modal shell
+- The card can be dragged with mouse, pen or touch; a tap still flips it
+- A **Secure Lock Card** shortcut is added to SillyTavern's Wand/Extensions Menu
 
 ### Contextual ATM
 
@@ -21,6 +24,7 @@ Secure Lock is a SillyTavern contextual interaction extension. It keeps normal r
 - The AI may supply scene-specific ATM bank, branch, terminal, location and currency context.
 - Desktop and mobile presentations are responsive and the ATM window can be dragged with mouse, pen or touch.
 - ATM flow currently includes card insertion, PIN, balance, withdrawal, transfer, deposit and card ejection.
+- iOS ATM backdrop filtering is disabled so the terminal itself remains sharp and readable.
 
 ### Pocket Phone bridge
 
