@@ -1,0 +1,171 @@
+/* Secure Lock v0.2.3 polish stylesheet. */
+@import url("./style-v022.css?slv=0.2.3");
+
+/* -------------------------------------------------------------------------
+   ATM: iOS Safari can blur the ATM itself when a backdrop-filter sibling is
+   in the same very-high-z overlay host. Keep the dimming layer, but remove
+   backdrop filtering completely so the terminal remains crisp after insert.
+   ------------------------------------------------------------------------- */
+#secure-lock-overlay-root .sl-atm-backdrop {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    filter: none !important;
+    background: rgba(7, 10, 14, .48) !important;
+}
+
+#secure-lock-overlay-root .sl-atm-window,
+#secure-lock-overlay-root .sl-atm-screen-panel,
+#secure-lock-overlay-root .sl-atm-screen {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-filter: none !important;
+    filter: none !important;
+}
+
+/* -------------------------------------------------------------------------
+   ATM card preview: card only. No large white modal shell, no heading panel,
+   no separate Flip button. The card itself remains the flip control and the
+   close button floats over its top-right corner.
+   ------------------------------------------------------------------------- */
+#secure-lock-overlay-root .sl-card-modal:not([hidden]) {
+    --sl-card-drag-x: 0px;
+    --sl-card-drag-y: 0px;
+    width: min(520px, calc(100% - 28px - env(safe-area-inset-left) - env(safe-area-inset-right))) !important;
+    max-height: none !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    transform: translate(
+        calc(-50% + var(--sl-card-drag-x)),
+        calc(-50% + var(--sl-card-drag-y))
+    ) !important;
+}
+
+#secure-lock-overlay-root .sl-card-modal .sl-modal-head {
+    position: absolute !important;
+    z-index: 30 !important;
+    top: 10px !important;
+    right: 10px !important;
+    left: auto !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: none !important;
+    pointer-events: none !important;
+}
+
+#secure-lock-overlay-root .sl-card-modal .sl-modal-head > div {
+    display: none !important;
+}
+
+#secure-lock-overlay-root .sl-card-modal .sl-modal-head .sl-icon-btn {
+    pointer-events: auto !important;
+    width: 36px !important;
+    height: 36px !important;
+    color: rgba(255,255,255,.94) !important;
+    background: rgba(17, 21, 27, .72) !important;
+    border: 1px solid rgba(255,255,255,.14) !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,.34) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    backdrop-filter: blur(5px) !important;
+}
+
+#secure-lock-overlay-root .sl-card-actions {
+    display: none !important;
+}
+
+#secure-lock-overlay-root .sl-bank-card-wrap {
+    display: block !important;
+    width: 100% !important;
+    touch-action: none !important;
+    cursor: grab !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+}
+
+#secure-lock-overlay-root .sl-bank-card-wrap:active {
+    cursor: grabbing !important;
+}
+
+#secure-lock-overlay-root .sl-bank-card {
+    isolation: isolate !important;
+    -webkit-transform-style: preserve-3d !important;
+    transform-style: preserve-3d !important;
+    will-change: transform !important;
+}
+
+/* -------------------------------------------------------------------------
+   Safari back-face reliability: backface-visibility alone can leak the front
+   face into the reverse side. Explicit opacity/visibility gating guarantees
+   that card number/front labels never appear mirrored on the back.
+   ------------------------------------------------------------------------- */
+#secure-lock-overlay-root .sl-card-face {
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    will-change: transform, opacity !important;
+}
+
+#secure-lock-overlay-root .sl-card-front {
+    -webkit-transform: rotateY(0deg) translateZ(1px) !important;
+    transform: rotateY(0deg) translateZ(1px) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+#secure-lock-overlay-root .sl-card-back {
+    -webkit-transform: rotateY(180deg) translateZ(1px) !important;
+    transform: rotateY(180deg) translateZ(1px) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+#secure-lock-overlay-root .sl-bank-card.is-flipped .sl-card-front {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+#secure-lock-overlay-root .sl-bank-card.is-flipped .sl-card-back {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* A lighter background treatment for the card viewer. The card itself is the
+   only panel; this layer just separates it from the roleplay text. */
+#secure-lock-overlay-root .sl-backdrop {
+    background: rgba(7, 10, 14, .30) !important;
+    -webkit-backdrop-filter: blur(3px) !important;
+    backdrop-filter: blur(3px) !important;
+}
+
+/* Wand Menu shortcut follows SillyTavern's existing list item styling. */
+#secure-lock-wand-card {
+    cursor: pointer;
+}
+
+#secure-lock-wand-card > i {
+    width: 1.25em;
+    text-align: center;
+}
+
+@media (max-width: 720px) {
+    #secure-lock-overlay-root .sl-card-modal:not([hidden]) {
+        width: min(480px, calc(100% - 24px - env(safe-area-inset-left) - env(safe-area-inset-right))) !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+    }
+}
+
+@media (max-width: 420px) {
+    #secure-lock-overlay-root .sl-card-modal:not([hidden]) {
+        width: calc(100% - 20px - env(safe-area-inset-left) - env(safe-area-inset-right)) !important;
+    }
+
+    #secure-lock-overlay-root .sl-card-modal .sl-modal-head {
+        top: 8px !important;
+        right: 8px !important;
+    }
+}
