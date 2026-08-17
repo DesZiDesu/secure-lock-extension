@@ -1,0 +1,108 @@
+/* Secure Lock v0.2.4 presentation fixes. */
+@import url("./style-v023.css?slv=0.2.4");
+
+/* -------------------------------------------------------------------------
+   CARD FLIP — avoid rotating the entire card container on iOS Safari.
+   Safari occasionally drops the reverse face when a preserve-3d parent is
+   rotated. Keep the parent flat and rotate each face instead.
+   ------------------------------------------------------------------------- */
+#secure-lock-overlay-root .sl-bank-card,
+#secure-lock-overlay-root .sl-bank-card.is-flipped {
+    -webkit-transform: none !important;
+    transform: none !important;
+    -webkit-transform-style: flat !important;
+    transform-style: flat !important;
+    transition: none !important;
+}
+
+#secure-lock-overlay-root .sl-card-face {
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    transition:
+        -webkit-transform .48s cubic-bezier(.2,.7,.2,1),
+        transform .48s cubic-bezier(.2,.7,.2,1),
+        opacity .16s ease !important;
+}
+
+#secure-lock-overlay-root .sl-card-front {
+    -webkit-transform: rotateY(0deg) !important;
+    transform: rotateY(0deg) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 2 !important;
+}
+
+#secure-lock-overlay-root .sl-card-back {
+    -webkit-transform: rotateY(180deg) !important;
+    transform: rotateY(180deg) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    z-index: 1 !important;
+}
+
+#secure-lock-overlay-root .sl-bank-card.is-flipped .sl-card-front {
+    -webkit-transform: rotateY(-180deg) !important;
+    transform: rotateY(-180deg) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    z-index: 1 !important;
+}
+
+#secure-lock-overlay-root .sl-bank-card.is-flipped .sl-card-back {
+    -webkit-transform: rotateY(0deg) !important;
+    transform: rotateY(0deg) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 2 !important;
+}
+
+/* -------------------------------------------------------------------------
+   ATM CLARITY — v0.2.4 positions the ATM with integer left/top pixels in JS,
+   so no translate() layer is needed. Remove every filter/text blur source from
+   the ATM subtree and avoid will-change compositing on Safari.
+   ------------------------------------------------------------------------- */
+#secure-lock-overlay-root .sl-atm-window:not([hidden]) {
+    -webkit-transform: none !important;
+    transform: none !important;
+    -webkit-filter: none !important;
+    filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    will-change: auto !important;
+    contain: layout paint;
+}
+
+#secure-lock-overlay-root .sl-atm-window,
+#secure-lock-overlay-root .sl-atm-window *,
+#secure-lock-overlay-root .sl-atm-window *::before,
+#secure-lock-overlay-root .sl-atm-window *::after {
+    -webkit-filter: none !important;
+    filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    text-shadow: none !important;
+}
+
+#secure-lock-overlay-root .sl-atm-window {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#secure-lock-overlay-root .sl-atm-backdrop {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-filter: none !important;
+    filter: none !important;
+    background: rgba(7, 10, 14, .42) !important;
+}
+
+/* Keep the ATM visually crisp even when SillyTavern themes apply blur/filter
+   effects to generic popup descendants. */
+#secure-lock-overlay-root .sl-atm-screen,
+#secure-lock-overlay-root .sl-atm-screen-panel,
+#secure-lock-overlay-root .sl-atm-titlebar,
+#secure-lock-overlay-root .sl-atm-hardware,
+#secure-lock-overlay-root .sl-hardware-block {
+    opacity: 1 !important;
+    mix-blend-mode: normal !important;
+}
