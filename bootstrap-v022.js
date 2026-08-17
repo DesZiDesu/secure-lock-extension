@@ -50,8 +50,10 @@
         const doc = document.documentElement;
         const width = Math.max(1, Number(vv?.width) || doc.clientWidth || window.innerWidth || 1);
         const height = Math.max(1, Number(vv?.height) || window.innerHeight || doc.clientHeight || 1);
-        const left = (window.scrollX || window.pageXOffset || 0) + (Number(vv?.offsetLeft) || 0);
-        const top = (window.scrollY || window.pageYOffset || 0) + (Number(vv?.offsetTop) || 0);
+        const fallbackLeft = (window.scrollX || window.pageXOffset || 0) + (Number(vv?.offsetLeft) || 0);
+        const fallbackTop = (window.scrollY || window.pageYOffset || 0) + (Number(vv?.offsetTop) || 0);
+        const left = Number.isFinite(Number(vv?.pageLeft)) ? Number(vv.pageLeft) : fallbackLeft;
+        const top = Number.isFinite(Number(vv?.pageTop)) ? Number(vv.pageTop) : fallbackTop;
         return { left, top, width, height };
     }
 
