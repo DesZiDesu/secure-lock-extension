@@ -18,6 +18,7 @@
     let suppressCardClickUntil = 0;
     let wandObserver = null;
     let repairTimer = 0;
+    let controllerPromise = null;
 
     function extensionBaseUrl() {
         const script = Array.from(document.scripts).find(el => /secure-lock-extension\/bootstrap-v023\.js(?:\?|$)/.test(el.src));
@@ -142,12 +143,15 @@
     function patchVisibleVersion() {
         const settingsRoot = document.getElementById(SETTINGS_ROOT_ID);
         if (settingsRoot) {
+            const desired = `ATM & card foundation v${VERSION}`;
             settingsRoot.querySelectorAll('.secure-lock-settings__meta').forEach(el => {
-                if (/ATM\s*&\s*card foundation v/i.test(el.textContent || '')) {
-                    el.textContent = `ATM & card foundation v${VERSION}`;
+                if (/ATM\s*&\s*card foundation v/i.test(el.textContent || '') && el.textContent !== desired) {
+                    el.textContent = desired;
                 }
             });
-            settingsRoot.dataset.secureLockVersion = VERSION;
+            if (settingsRoot.dataset.secureLockVersion !== VERSION) {
+                settingsRoot.dataset.secureLockVersion = VERSION;
+            }
         }
 
         const current = globalThis.SecureLockUI;
@@ -158,13 +162,27 @@
         }
     }
 
-    function openCardFromWand(event) {
+    async function waitForUi(timeout = 3000) {
+        if (globalThis.SecureLockUI?.openCard) return globalThis.SecureLockUI;
+        await controllerPromise;
+        if (globalThis.SecureLockUI?.openCard) return globalThis.SecureLockUI;
+
+        const started = performance.now();
+        while (performance.now() - started < timeout) {
+            await new Promise(resolve => setTimeout(resolve, 40));
+            if (globalThis.SecureLockUI?.openCard) return globalThis.SecureLockUI;
+        }
+        return null;
+    }
+
+    async function openCardFromWand(event) {
         event?.preventDefault?.();
         event?.stopPropagation?.();
         resetCardPosition();
-        const ui = globalThis.SecureLockUI;
+        const ui = await waitForUi();
         if (ui?.openCard) {
-            void ui.openCard();
+            await ui.openCard();
+            scheduleClamp();
         }
     }
 
@@ -181,9 +199,9 @@
         button.setAttribute('title', 'View Secure Lock ATM card');
         button.setAttribute('aria-label', 'View Secure Lock ATM card');
         button.innerHTML = '<i class="fa-solid fa-credit-card fa-fw" aria-hidden="true"></i><span>Secure Lock Card</span>';
-        button.addEventListener('click', openCardFromWand);
+        button.addEventListener('click', event => { void openCardFromWand(event); });
         button.addEventListener('keydown', event => {
-            if (event.key === 'Enter' || event.key === ' ') openCardFromWand(event);
+            if (event.key === 'Enter' || event.key === ' ') void openCardFromWand(event);
         });
         menu.appendChild(button);
         return true;
@@ -210,8 +228,9 @@
     }
 
     installCardGestureGuards();
+    controllerPromise = loadViewportController();
     watchWandMenu();
-    await loadViewportController();
+    await controllerPromise;
     patchVisibleVersion();
     ensureWandButton();
     scheduleClamp();
