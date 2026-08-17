@@ -1,0 +1,40 @@
+#secure-lock-settings-root {
+    --secure-lock-gap: 10px;
+}
+
+#secure-lock-settings-root .inline-drawer-content {
+    padding-top: 8px;
+}
+
+.secure-lock-settings__intro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--secure-lock-gap);
+    margin-bottom: 12px;
+}
+
+.secure-lock-settings__meta,
+.secure-lock-settings__note {
+    color: var(--SmartThemeBodyColor, inherit);
+    opacity: 0.7;
+    font-size: 0.9em;
+}
+
+.secure-lock-settings__badge {
+    flex: 0 0 auto;
+    padding: 3px 8px;
+    border: 1px solid var(--SmartThemeBorderColor, currentColor);
+    border-radius: 999px;
+    font-size: 0.8em;
+    opacity: 0.85;
+}
+
+.secure-lock-settings__toggle {
+    margin: 8px 0;
+}
+
+.secure-lock-settings__note {
+    margin: 10px 0 2px;
+    line-height: 1.4;
+}

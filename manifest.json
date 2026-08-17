@@ -1,0 +1,13 @@
+{
+  "display_name": "Secure Lock",
+  "loading_order": 20,
+  "requires": [],
+  "optional": [],
+  "dependencies": [],
+  "js": "index.js",
+  "css": "style.css",
+  "author": "DesZiDesu",
+  "version": "0.1.0",
+  "homePage": "https://github.com/DesZiDesu/secure-lock-extension",
+  "auto_update": true
+}
