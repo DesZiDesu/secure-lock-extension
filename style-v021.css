@@ -1,0 +1,44 @@
+/* Secure Lock v0.2.1 cache-safe stylesheet entry. */
+@import url("./style.css?slv=0.2.1");
+
+/* Reliability layer: keep interaction windows above SillyTavern drawers/popups. */
+#secure-lock-overlay-root {
+    z-index: 2147483000 !important;
+    visibility: visible !important;
+}
+
+#secure-lock-overlay-root .sl-card-modal,
+#secure-lock-overlay-root .sl-atm-window,
+#secure-lock-overlay-root .sl-backdrop,
+#secure-lock-overlay-root .sl-atm-backdrop {
+    visibility: visible;
+}
+
+#secure-lock-overlay-root [hidden] {
+    display: none !important;
+}
+
+/* If an older cached stylesheet was retained by WebKit, these rules still make
+   the two test surfaces visible and usable instead of silently rendering off-flow. */
+#secure-lock-overlay-root .sl-card-modal:not([hidden]) {
+    display: block !important;
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    pointer-events: auto !important;
+}
+
+#secure-lock-overlay-root .sl-atm-window:not([hidden]) {
+    display: flex !important;
+    position: fixed !important;
+    pointer-events: auto !important;
+}
+
+#secure-lock-overlay-root .sl-backdrop:not([hidden]),
+#secure-lock-overlay-root .sl-atm-backdrop:not([hidden]) {
+    display: block !important;
+    position: fixed !important;
+    inset: 0 !important;
+    pointer-events: auto !important;
+}
