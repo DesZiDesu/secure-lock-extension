@@ -8,9 +8,9 @@
             <div class="secure-lock-settings__intro">
                 <div>
                     <strong>Secure Lock</strong>
-                    <div class="secure-lock-settings__meta">Foundation v{{version}}</div>
+                    <div class="secure-lock-settings__meta">ATM & card foundation v{{version}}</div>
                 </div>
-                <span class="secure-lock-settings__badge">Ready</span>
+                <span class="secure-lock-settings__badge">ATM Ready</span>
             </div>
 
             <label class="checkbox_label secure-lock-settings__toggle" for="secure-lock-enabled">
@@ -18,8 +18,86 @@
                 <span>Enable Secure Lock</span>
             </label>
 
-            <p class="secure-lock-settings__note">
-                Base extension shell is installed. Interactive roleplay components will be added in later stages.
+            <div class="secure-lock-settings__section">
+                <div class="secure-lock-settings__section-head">
+                    <div>
+                        <strong>ATM Card</strong>
+                        <span>Customize any field. Leave it blank to let the roleplay AI supply a stable fallback when an ATM is actually used.</span>
+                    </div>
+                    <button id="secure-lock-open-card" type="button" class="menu_button secure-lock-settings__primary">Open ATM Card</button>
+                </div>
+
+                <div class="secure-lock-settings__grid">
+                    <label>
+                        <span>Issuing bank</span>
+                        <input id="secure-lock-card-bank" data-card-key="bankName" class="text_pole" type="text" placeholder="AI / auto" />
+                    </label>
+                    <label>
+                        <span>Card holder</span>
+                        <input id="secure-lock-card-holder" data-card-key="holder" class="text_pole" type="text" placeholder="AI / auto" />
+                    </label>
+                    <label class="secure-lock-settings__wide">
+                        <span>Card number</span>
+                        <input id="secure-lock-card-number" data-card-key="number" class="text_pole" type="text" inputmode="numeric" autocomplete="off" maxlength="23" placeholder="AI / auto" />
+                    </label>
+                    <label>
+                        <span>Expiry (MM/YY)</span>
+                        <input id="secure-lock-card-expiry" data-card-key="expiry" class="text_pole" type="text" inputmode="numeric" autocomplete="off" maxlength="5" placeholder="AI / auto" />
+                    </label>
+                    <label>
+                        <span>CVV / CVC</span>
+                        <input id="secure-lock-card-cvv" data-card-key="cvv" class="text_pole" type="password" inputmode="numeric" autocomplete="off" maxlength="4" placeholder="AI / auto" />
+                    </label>
+                    <label>
+                        <span>Card network label</span>
+                        <input id="secure-lock-card-network" data-card-key="network" class="text_pole" type="text" maxlength="14" placeholder="SECURE" />
+                    </label>
+                    <label>
+                        <span>Card design</span>
+                        <select id="secure-lock-card-theme" data-card-key="theme" class="text_pole">
+                            <option value="obsidian">Obsidian Gold</option>
+                            <option value="sapphire">Sapphire</option>
+                            <option value="emerald">Emerald</option>
+                            <option value="crimson">Crimson</option>
+                            <option value="pearl">Pearl</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="secure-lock-settings__actions">
+                    <button id="secure-lock-clear-auto-card" type="button" class="menu_button">Clear AI Card Fallback</button>
+                </div>
+            </div>
+
+            <div class="secure-lock-settings__section">
+                <div class="secure-lock-settings__section-head">
+                    <div>
+                        <strong>ATM Access</strong>
+                        <span>The PIN is local interaction state and does not consume an API request.</span>
+                    </div>
+                    <button id="secure-lock-test-atm" type="button" class="menu_button">Test ATM</button>
+                </div>
+                <label class="secure-lock-settings__single-field">
+                    <span>ATM PIN</span>
+                    <input id="secure-lock-atm-pin" class="text_pole" type="password" inputmode="numeric" autocomplete="off" maxlength="8" placeholder="2580" />
+                </label>
+            </div>
+
+            <div class="secure-lock-settings__section secure-lock-settings__integration">
+                <div class="secure-lock-settings__integration-row">
+                    <div>
+                        <strong>Pocket Phone financial bridge</strong>
+                        <div id="secure-lock-pocket-detail" class="secure-lock-settings__meta">Checking…</div>
+                    </div>
+                    <span id="secure-lock-pocket-status" class="secure-lock-settings__bridge-badge">Checking</span>
+                </div>
+                <p class="secure-lock-settings__note">
+                    When Pocket Phone is installed, Secure Lock uses its wallet balance, currency, account and per-chat wallet route. ATM withdrawals, deposits and transfers write back to the same wallet history.
+                </p>
+            </div>
+
+            <p class="secure-lock-settings__note secure-lock-settings__trigger-note">
+                Automatic ATM popup is intentionally strict: simply approaching or standing near an ATM does not open it. The AI must detect immediate intent to operate the ATM in the current roleplay turn.
             </p>
         </div>
     </div>

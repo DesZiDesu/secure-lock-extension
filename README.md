@@ -1,22 +1,43 @@
 # Secure Lock
 
-Secure Lock is a SillyTavern UI extension intended to provide contextual, interactive roleplay components that can appear alongside the normal chat experience.
+Secure Lock is a SillyTavern contextual interaction extension. It keeps normal roleplay in the main chat while opening small interactive components only when the current scene actually needs them.
 
-## Current stage
+## Current stage — v0.2.0
 
-The repository currently contains the initial extension foundation only:
+### ATM Card
 
-- SillyTavern `manifest.json`
-- Safe browser entry point
-- Persistent extension settings namespace
-- A collapsible **Secure Lock** drawer in the SillyTavern Extensions tab
-- Scoped styling ready for future interaction components
+- Extensions-tab card editor
+- Front/back 3D flip preview
+- Gold chip, card number, card holder, expiry, CVV/CVC and network label
+- Multiple visual card themes
+- User-entered fields always win
+- Blank card fields can receive stable AI-generated defaults when an ATM interaction is triggered
 
-No ATM, keypad, payment, lock, or roleplay-trigger logic is enabled at this stage.
+### Contextual ATM
+
+- The ATM opens from the same normal SillyTavern generation through `secureLockGenInterceptor`; it does not make a second model request.
+- Triggering is intentionally strict. Seeing, approaching, passing or standing near an ATM does not open the component.
+- Immediate intent to operate the ATM can open it: inserting/reaching for a card, beginning a transaction, explicitly deciding to use it, or an NPC actively starting to use the ATM.
+- The AI may supply scene-specific ATM bank, branch, terminal, location and currency context.
+- Desktop and mobile presentations are responsive and the ATM window can be dragged with mouse, pen or touch.
+- ATM flow currently includes card insertion, PIN, balance, withdrawal, transfer, deposit and card ejection.
+
+### Pocket Phone bridge
+
+When `pocket-phone-optimized` is installed, Secure Lock reads and writes the Pocket Phone wallet state directly:
+
+- wallet balance
+- wallet currency
+- wallet account
+- wallet name
+- per-chat wallet routes
+- wallet transaction history
+
+Withdrawals, transfers and deposits therefore update the same financial state instead of maintaining a competing balance. If Pocket Phone is unavailable, Secure Lock uses a local fallback wallet so the ATM remains testable.
 
 ## Installation
 
-Install this repository as a third-party SillyTavern extension:
+Install as a third-party SillyTavern extension:
 
 `https://github.com/DesZiDesu/secure-lock-extension`
 
