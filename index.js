@@ -606,8 +606,10 @@ function renderAtm() {
     if (atmState === 'insert') {
         screen.innerHTML = `
             <div class="sl-atm-status"><strong>Insert your card</strong><span>${escapeHtml(bank)} is ready for a transaction.</span></div>
-            <div class="sl-atm-card-preview" data-theme="${escapeHtml(card.theme)}">
-                <span>${escapeHtml(card.bankName)}</span><b>•••• ${escapeHtml(card.number.slice(-4))}</b>
+            <div class="sl-atm-card-preview" aria-label="${escapeHtml(card.bankName)} card">
+                <div class="sl-bank-card sl-atm-card-display" data-theme="${escapeHtml(card.theme)}">
+                    <div class="sl-card-face sl-card-front">${cardMarkup(card, false)}</div>
+                </div>
             </div>
             <button class="sl-button sl-button-primary sl-full" data-atm-action="insert">Insert card</button>
         `;

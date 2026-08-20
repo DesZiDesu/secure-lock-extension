@@ -766,27 +766,46 @@
     width: min(290px, 86%);
     aspect-ratio: 1.586 / 1;
     margin: 12px auto 18px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    position: relative;
+}
+
+.sl-atm-card-display {
+    width: 100%;
+    height: 100%;
+    transform: none !important;
+    transition: none !important;
+}
+
+.sl-atm-card-display .sl-card-face {
     padding: 16px;
     border-radius: 16px;
-    color: #f7f2e7;
-    box-shadow: 0 12px 25px rgba(61,68,76,.25);
 }
 
-.sl-atm-card-preview span {
+.sl-atm-card-display .sl-card-bank {
     font-size: 12px;
-    font-weight: 700;
 }
 
-.sl-atm-card-preview b {
+.sl-atm-card-display .sl-gold-chip {
+    width: 45px;
+    height: 34px;
+    margin-top: 12px;
+}
+
+.sl-atm-card-display .sl-card-number {
+    margin-top: 10px;
     font-size: 16px;
-    letter-spacing: .12em;
 }
 
-.sl-atm-card-preview[data-theme="pearl"] {
-    color: #2a3037;
+.sl-atm-card-display .sl-card-bottom {
+    margin-top: 10px;
+}
+
+.sl-atm-card-display .sl-card-bottom b {
+    font-size: 9px;
+}
+
+.sl-atm-card-display .sl-network {
+    font-size: 13px;
 }
 
 .sl-pin-dots {
