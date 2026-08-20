@@ -372,7 +372,7 @@
         }
         if (manualAtm.state === 'balance') {
             const account = wallet.account || `•••• ${card.number.slice(-4)}`;
-            screen.innerHTML = `<div class="sl-atm-status"><strong>Account overview</strong><div class="sl-balance">${escapeHtml(money(wallet.balance, currency))}</div><span>${escapeHtml(account)}</span></div><div class="sl-receipt">BANK: ${escapeHtml(bank)}<br>ACCOUNT: ${escapeHtml(account)}<br>CARD: •••• ${escapeHtml(card.number.slice(-4))}<br>SOURCE: ${escapeHtml(wallet.source)}</div><button class="sl-button sl-button-primary sl-full" data-sl021-atm-action="menu">Back to menu</button>`;
+            screen.innerHTML = `<div class="sl-atm-status"><strong>Account overview</strong><div class="sl-balance">${escapeHtml(money(wallet.balance, currency))}</div><span>${escapeHtml(account)}</span></div><button class="sl-button sl-button-primary sl-full" data-sl021-atm-action="menu">Back to menu</button>`;
             return;
         }
         if (manualAtm.state === 'withdraw') {
@@ -388,7 +388,7 @@
             return;
         }
         if (manualAtm.state === 'cash') {
-            screen.innerHTML = `<div class="sl-atm-status"><strong>Take your cash</strong><span>Transaction completed.</span></div><div class="sl-cash-stack"><i></i><i></i><i></i></div><div class="sl-receipt">TRANSACTION APPROVED<br>NEW BALANCE: ${escapeHtml(money(readWallet().balance, currency))}</div><button class="sl-button sl-button-primary sl-full" data-sl021-atm-action="menu">Continue</button>`;
+            screen.innerHTML = `<div class="sl-atm-status"><strong>Take your cash</strong><span>Transaction completed.</span></div><button class="sl-button sl-button-primary sl-full" data-sl021-atm-action="menu">Continue</button>`;
         }
     }
 

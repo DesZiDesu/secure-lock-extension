@@ -57,6 +57,21 @@
 }
 
 /* -------------------------------------------------------------------------
+   REAL CARD GEOMETRY — enforce the physical bank-card proportion in the
+   active v0.2.4 stylesheet, including the iOS presentation layer.
+   ------------------------------------------------------------------------- */
+#secure-lock-overlay-root .sl-bank-card {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 85.60 / 53.98 !important;
+}
+
+#secure-lock-overlay-root .sl-card-face {
+    border-radius: clamp(14px, 2.8vw, 22px) !important;
+    overflow: hidden !important;
+}
+
+/* -------------------------------------------------------------------------
    ATM CLARITY — v0.2.4 positions the ATM with integer left/top pixels in JS,
    so no translate() layer is needed. Remove every filter/text blur source from
    the ATM subtree and avoid will-change compositing on Safari.

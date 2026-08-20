@@ -846,40 +846,6 @@
     margin: 12px 0;
 }
 
-.sl-receipt {
-    margin: 12px 0;
-    padding: 12px;
-    border-radius: 12px;
-    color: #54575d;
-    background: #f4f1e8;
-    box-shadow: 0 8px 20px rgba(91,99,108,.17);
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: 11px;
-    line-height: 1.55;
-}
-
-.sl-cash-stack {
-    position: relative;
-    width: 180px;
-    height: 84px;
-    margin: 14px auto;
-}
-
-.sl-cash-stack i {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 112px;
-    height: 52px;
-    border: 1px solid #91a79a;
-    border-radius: 6px;
-    background: linear-gradient(135deg, #c4d9c9, #e0eadf);
-    box-shadow: 0 5px 9px rgba(73,92,81,.18);
-}
-
-.sl-cash-stack i:nth-child(1) { transform: translate(-56%, -50%) rotate(-7deg); }
-.sl-cash-stack i:nth-child(2) { transform: translate(-50%, -48%) rotate(1deg); }
-.sl-cash-stack i:nth-child(3) { transform: translate(-44%, -44%) rotate(7deg); }
 
 .sl-toast {
     position: fixed;

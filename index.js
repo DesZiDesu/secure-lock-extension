@@ -639,7 +639,6 @@ function renderAtm() {
         const account = wallet.account || `•••• ${card.number.slice(-4)}`;
         screen.innerHTML = `
             <div class="sl-atm-status"><strong>Account overview</strong><div class="sl-balance">${escapeHtml(formatMoney(wallet.balance, currency))}</div><span>${escapeHtml(account)}</span></div>
-            <div class="sl-receipt">BANK: ${escapeHtml(bank)}<br>ACCOUNT: ${escapeHtml(account)}<br>CARD: •••• ${escapeHtml(card.number.slice(-4))}<br>SOURCE: ${escapeHtml(wallet.source)}</div>
             <button class="sl-button sl-button-primary sl-full" data-atm-action="menu">Back to menu</button>
         `;
         return;
@@ -673,8 +672,6 @@ function renderAtm() {
     if (atmState === 'cash') {
         screen.innerHTML = `
             <div class="sl-atm-status"><strong>Take your cash</strong><span>Transaction completed.</span></div>
-            <div class="sl-cash-stack"><i></i><i></i><i></i></div>
-            <div class="sl-receipt">TRANSACTION APPROVED<br>NEW BALANCE: ${escapeHtml(formatMoney(readWallet().balance, currency))}</div>
             <button class="sl-button sl-button-primary sl-full" data-atm-action="menu">Continue</button>
         `;
     }
